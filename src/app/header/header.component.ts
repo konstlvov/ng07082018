@@ -1,4 +1,4 @@
-import {AfterContentInit, Component, ContentChild, EventEmitter, Input, OnInit, Output, View} from '@angular/core';
+import {AfterContentInit, Component, ContentChild, EventEmitter, Input, OnInit, Output} from '@angular/core';
 
 @Component({
   selector: 'course-header',
