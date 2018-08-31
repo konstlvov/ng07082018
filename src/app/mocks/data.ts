@@ -84,7 +84,8 @@ const products: IProduct[] = [
 
 export const products$: Observable<IProduct[]> = of(products)
   .pipe(
+   // этот map и filter не пропускает наружу продукты с пустым src
     map((productsArr: IProduct[]) =>
-      productsArr.filter((product: IProduct) => product.src)),
+      productsArr.filter((product: IProduct) => product.src !== '')),
     delay(3000)
   );
