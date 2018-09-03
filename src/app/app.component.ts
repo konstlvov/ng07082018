@@ -1,7 +1,8 @@
 import {Component} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
 import {SafeHtml} from '@angular/platform-browser/src/security/dom_sanitization_service';
-import {products$} from './mocks/data';
+//import {products$} from './mocks/data';
+import {ProductsService} from './products.service';
 import {Observable} from 'rxjs';
 
 @Component({
@@ -16,18 +17,23 @@ export class CourseComponent {
   public placeholder = 'Более 1000 товаров';
   public searchText;
   public loading = false;
-  public products$: Observable<IProduct[]> = products$;
+  public products$: Observable<IProduct[]>;
 
   // TODO title pipe ?
   public constructor(
-    private _sanitazer: DomSanitizer
+    private _sanitazer: DomSanitizer,
+    private _productsService: ProductsService
   ) {
     setTimeout(() => {
       this.loading = true;
-    }, 5000);
-    // products$.subscribe((products: IProduct[]) => {
+    }, 3000);
+    //products$.subscribe((products: IProduct[]) => {
     //   this.productsData = products;
     // });
+  }
+
+  public ngOnInit(): void {
+    this.products$ = this._productsService.products$();
   }
 
 

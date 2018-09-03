@@ -6,6 +6,8 @@ import { HeaderComponent } from './header/header.component';
 import { FooterComponent } from './footer/footer.component';
 import { CardComponent } from './card/card.component';
 import { ProductFilterPipe } from './common/pipes/product-filter.pipe';
+import {ProductsService} from './products.service';
+import {HttpClientModule} from '@angular/common/http';
 
 @NgModule({
   declarations: [
@@ -16,9 +18,10 @@ import { ProductFilterPipe } from './common/pipes/product-filter.pipe';
     ProductFilterPipe
   ],
   imports: [
-    BrowserModule
+     BrowserModule
+    ,HttpClientModule
   ],
-  providers: [],
+  providers: [ProductsService],
   bootstrap: [CourseComponent]
 })
 export class AppModule { }
