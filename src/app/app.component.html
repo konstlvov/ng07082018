@@ -88,8 +88,8 @@
       <!--<div *ngFor="let key of products[0] | keyvalue ">-->
         <!--<div>{{key | json}}</div>-->
       <!--</div>-->
-      <course-card *ngFor="let product of products | productFilter:searchText; let isOdd = odd "
-                   [product]="product" [isOdd]="isOdd"
+      <course-card *ngFor="let p of products | productFilter:searchText; let isOdd = odd "
+                   [product]="p" [isOdd]="isOdd"
       ></course-card>
     </div>
     <ng-template #loadRef>
