@@ -1,4 +1,6 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, Input} from '@angular/core';
+import {Store} from '@ngrx/store';
+import {AddProductToCart} from '../store/actions/cart.action';
 
 
 @Component({
@@ -6,7 +8,7 @@ import {Component, Input, OnInit} from '@angular/core';
   templateUrl: './card.component.html',
   styleUrls: ['./card.component.css']
 })
-export class CardComponent implements OnInit {
+export class CardComponent {
 
   @Input()
   public product: IProduct;
@@ -14,10 +16,17 @@ export class CardComponent implements OnInit {
   @Input()
   public isOdd: boolean;
 
-  constructor() {
+  public constructor(
+    private _store: Store<any>
+  ) {
   }
 
-  ngOnInit() {
+  public dolarPrice(price: number): number {
+    return price * 28;
+  }
+
+  public addToCart(product: IProduct) {
+    this._store.dispatch(new AddProductToCart(product));
   }
 
 }

@@ -1,9 +1,8 @@
-import {Component} from '@angular/core';
+import {Component, OnInit} from '@angular/core';
 import {DomSanitizer} from '@angular/platform-browser';
-import {SafeHtml} from '@angular/platform-browser/src/security/dom_sanitization_service';
-//import {products$} from './mocks/data';
-import {ProductsService} from './products.service';
 import {Observable} from 'rxjs';
+import {Store} from '@ngrx/store';
+import {GetProductsPending} from './store/actions/products.action';
 
 @Component({
   selector: 'course-root',
@@ -12,33 +11,22 @@ import {Observable} from 'rxjs';
   // interpolation: ['/', ']']
   // encapsulation: ViewEncapsulation.None
 })
-export class CourseComponent {
+export class CourseComponent implements OnInit {
   public logo = 'assets/img/logo.png';
   public placeholder = 'Более 1000 товаров';
   public searchText;
-  public loading = false;
   public products$: Observable<IProduct[]>;
 
-  // TODO title pipe ?
   public constructor(
     private _sanitazer: DomSanitizer,
-    private _productsService: ProductsService
+    private _store: Store<any>
   ) {
-    setTimeout(() => {
-      this.loading = true;
-    }, 3000);
-    //products$.subscribe((products: IProduct[]) => {
-    //   this.productsData = products;
-    // });
   }
 
   public ngOnInit(): void {
-    this.products$ = this._productsService.products$();
+    this._store.dispatch(new GetProductsPending());
+    this.products$ = this._store.select('products');
   }
 
-
-  public span(): SafeHtml {
-    return this._sanitazer.bypassSecurityTrustHtml(`<span style="color:red">Hi ${this.searchText || ''} </span>`);
-  }
 
 }
